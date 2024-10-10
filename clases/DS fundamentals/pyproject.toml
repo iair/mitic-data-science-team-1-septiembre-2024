@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "ds fundamentals"
+package-mode = false
+version = "0.1.0"
+description = ""
+authors = ["Morkand <cpaezpy@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+panda = "^0.3.1"
+numpy = "^2.1.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
