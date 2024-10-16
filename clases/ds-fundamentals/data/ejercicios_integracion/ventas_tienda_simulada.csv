@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6885cbbbc8e3b734077eacdd4ba84ab967f4c82b292236ccedfd5d556901de90
-size 709
+fecha,producto,cantidad,precio_unitario,total
+2023-01-01,Producto_A,2.0,10.5,21.0
+2023-01-02,Producto_B,,20.0,
+2023-01-03,Producto_C,5.0,,
+2023-01-04,Producto_D,7.0,15.0,105.0
+2023-01-05,Producto_A,1.0,12.0,12.0
+2023-01-06,Producto_B,4.0,25.0,100.0
+2023-01-07,Producto_C,,,
+2023-01-08,Producto_D,3.0,30.0,90.0
+2023-01-09,Producto_A,2.0,10.0,
+2023-01-10,Producto_B,,,
+2023-01-11,Producto_C,6.0,22.0,132.0
+2023-01-12,Producto_D,4.0,18.0,72.0
+2023-01-13,Producto_A,5.0,20.0,100.0
+2023-01-14,Producto_B,,25.0,
+2023-01-15,Producto_C,1.0,14.0,14.0
+2023-01-16,Producto_D,3.0,9.0,27.0
+2023-01-17,Producto_A,8.0,10.0,
+2023-01-18,Producto_B,4.0,11.0,44.0
+2023-01-19,Producto_C,7.0,,
+2023-01-20,Producto_D,6.0,15.0,90.0
