@@ -1,0 +1,4551 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Iair Linker">
+<meta name="dcterms.date" content="2024-11-02">
+
+<title>2do Examen curso Fundamentos de Data Science : Hotel Bookings</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="hotel_booking_files/libs/clipboard/clipboard.min.js"></script>
+<script src="hotel_booking_files/libs/quarto-html/quarto.js"></script>
+<script src="hotel_booking_files/libs/quarto-html/popper.min.js"></script>
+<script src="hotel_booking_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="hotel_booking_files/libs/quarto-html/anchor.min.js"></script>
+<link href="hotel_booking_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="hotel_booking_files/libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="hotel_booking_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="hotel_booking_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="hotel_booking_files/libs/bootstrap/bootstrap-677b520d69fcc55ab41b4b425631e74d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">2do Examen curso Fundamentos de Data Science : Hotel Bookings</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Iair Linker </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 2, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="requisitos" class="level2">
+<h2 class="anchored" data-anchor-id="requisitos"><strong>Requisitos:</strong></h2>
+<p>Tu tarea es limpiar y explorar un dataset que contiene información sobre los salarios en el campo de la ciencia de datos para el año 2023. Este análisis es crucial para entender las tendencias salariales y los factores que influyen en las diferencias de salarios en esta industria.</p>
+</section>
+<section id="configuración" class="level2">
+<h2 class="anchored" data-anchor-id="configuración"><strong>Configuración</strong></h2>
+<div id="cell-4" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML, Image</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utils</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">'../data/kaggle/hotel-booking/hotel_booking.csv'</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(filepath_or_buffer<span class="op">=</span>path, sep<span class="op">=</span> <span class="st">','</span>, header<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>(119390, 32)
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 119390 entries, 0 to 119389
+Data columns (total 32 columns):
+ #   Column                          Non-Null Count   Dtype  
+---  ------                          --------------   -----  
+ 0   hotel                           119390 non-null  object 
+ 1   is_canceled                     119390 non-null  int64  
+ 2   lead_time                       119390 non-null  int64  
+ 3   arrival_date_year               119390 non-null  int64  
+ 4   arrival_date_month              119390 non-null  object 
+ 5   arrival_date_week_number        119390 non-null  int64  
+ 6   arrival_date_day_of_month       119390 non-null  int64  
+ 7   stays_in_weekend_nights         119390 non-null  int64  
+ 8   stays_in_week_nights            119390 non-null  int64  
+ 9   adults                          119390 non-null  int64  
+ 10  children                        119386 non-null  float64
+ 11  babies                          119390 non-null  int64  
+ 12  meal                            119390 non-null  object 
+ 13  country                         118902 non-null  object 
+ 14  market_segment                  119390 non-null  object 
+ 15  distribution_channel            119390 non-null  object 
+ 16  is_repeated_guest               119390 non-null  int64  
+ 17  previous_cancellations          119390 non-null  int64  
+ 18  previous_bookings_not_canceled  119390 non-null  int64  
+ 19  reserved_room_type              119390 non-null  object 
+ 20  assigned_room_type              119390 non-null  object 
+ 21  booking_changes                 119390 non-null  int64  
+ 22  deposit_type                    119390 non-null  object 
+ 23  agent                           103050 non-null  float64
+ 24  company                         6797 non-null    float64
+ 25  days_in_waiting_list            119390 non-null  int64  
+ 26  customer_type                   119390 non-null  object 
+ 27  adr                             119390 non-null  float64
+ 28  required_car_parking_spaces     119390 non-null  int64  
+ 29  total_of_special_requests       119390 non-null  int64  
+ 30  reservation_status              119390 non-null  object 
+ 31  reservation_status_date         119390 non-null  object 
+dtypes: float64(4), int64(16), object(12)
+memory usage: 29.1+ MB</code></pre>
+</div>
+</div>
+</section>
+<section id="limpieza-de-datos-con-python" class="level2">
+<h2 class="anchored" data-anchor-id="limpieza-de-datos-con-python">Limpieza de datos con Python:</h2>
+<section id="verificación-y-ajuste-de-tipos-de-datos" class="level3">
+<h3 class="anchored" data-anchor-id="verificación-y-ajuste-de-tipos-de-datos"><strong>Verificación y ajuste de tipos de datos</strong></h3>
+<p>Asegúrate de que todas las columnas coincidan con los tipos de datos indicados en el diccionario de datos.</p>
+<div id="cell-7" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'reservation_status_date' to a datetime format</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'reservation_status_date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'reservation_status_date'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine year, month, and day to create a full date</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'arrival_date_year'</span>].astype(<span class="bu">str</span>) <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'arrival_date_month'</span>] <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'arrival_date_day_of_month'</span>].astype(<span class="bu">str</span>), </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">format</span><span class="op">=</span><span class="st">'%Y %B </span><span class="sc">%d</span><span class="st">'</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the result</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'arrival_date_month'</span>, <span class="st">'arrival_date_year'</span>, <span class="st">'arrival_date_day_of_month'</span>, <span class="st">'date'</span>]].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">arrival_date_month</th>
+<th data-quarto-table-cell-role="th">arrival_date_year</th>
+<th data-quarto-table-cell-role="th">arrival_date_day_of_month</th>
+<th data-quarto-table-cell-role="th">date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>July</td>
+<td>2015</td>
+<td>1</td>
+<td>2015-07-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>July</td>
+<td>2015</td>
+<td>1</td>
+<td>2015-07-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>July</td>
+<td>2015</td>
+<td>1</td>
+<td>2015-07-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>July</td>
+<td>2015</td>
+<td>1</td>
+<td>2015-07-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>July</td>
+<td>2015</td>
+<td>1</td>
+<td>2015-07-01</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-8" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify categorical variables</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>categorical_variables <span class="op">=</span> df.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>]).columns.tolist()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Categorical Variables:"</span>, categorical_variables)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df[categorical_variables] <span class="op">=</span> df[categorical_variables].astype(<span class="st">'category'</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Categorical Variables: ['hotel', 'arrival_date_month', 'meal', 'country', 'market_segment', 'distribution_channel', 'reserved_room_type', 'assigned_room_type', 'deposit_type', 'customer_type', 'reservation_status']
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 119390 entries, 0 to 119389
+Data columns (total 33 columns):
+ #   Column                          Non-Null Count   Dtype         
+---  ------                          --------------   -----         
+ 0   hotel                           119390 non-null  category      
+ 1   is_canceled                     119390 non-null  int64         
+ 2   lead_time                       119390 non-null  int64         
+ 3   arrival_date_year               119390 non-null  int64         
+ 4   arrival_date_month              119390 non-null  category      
+ 5   arrival_date_week_number        119390 non-null  int64         
+ 6   arrival_date_day_of_month       119390 non-null  int64         
+ 7   stays_in_weekend_nights         119390 non-null  int64         
+ 8   stays_in_week_nights            119390 non-null  int64         
+ 9   adults                          119390 non-null  int64         
+ 10  children                        119386 non-null  float64       
+ 11  babies                          119390 non-null  int64         
+ 12  meal                            119390 non-null  category      
+ 13  country                         118902 non-null  category      
+ 14  market_segment                  119390 non-null  category      
+ 15  distribution_channel            119390 non-null  category      
+ 16  is_repeated_guest               119390 non-null  int64         
+ 17  previous_cancellations          119390 non-null  int64         
+ 18  previous_bookings_not_canceled  119390 non-null  int64         
+ 19  reserved_room_type              119390 non-null  category      
+ 20  assigned_room_type              119390 non-null  category      
+ 21  booking_changes                 119390 non-null  int64         
+ 22  deposit_type                    119390 non-null  category      
+ 23  agent                           103050 non-null  float64       
+ 24  company                         6797 non-null    float64       
+ 25  days_in_waiting_list            119390 non-null  int64         
+ 26  customer_type                   119390 non-null  category      
+ 27  adr                             119390 non-null  float64       
+ 28  required_car_parking_spaces     119390 non-null  int64         
+ 29  total_of_special_requests       119390 non-null  int64         
+ 30  reservation_status              119390 non-null  category      
+ 31  reservation_status_date         119390 non-null  datetime64[ns]
+ 32  date                            119390 non-null  datetime64[ns]
+dtypes: category(11), datetime64[ns](2), float64(4), int64(16)
+memory usage: 21.4 MB</code></pre>
+</div>
+</div>
+</section>
+<section id="detección-y-eliminación-de-valores-duplicados" class="level3">
+<h3 class="anchored" data-anchor-id="detección-y-eliminación-de-valores-duplicados"><strong>Detección y eliminación de valores duplicados</strong></h3>
+<p>Asegúrate de que cada registro en el dataset sea único</p>
+<div id="cell-10" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identificar duplicados</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>duplicados <span class="op">=</span> df.duplicated()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Contar el número de duplicados</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>num_duplicados <span class="op">=</span> duplicados.<span class="bu">sum</span>()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Número de registros duplicados: </span><span class="sc">{</span>num_duplicados<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>df.loc[duplicados].head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Número de registros duplicados: 31994</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">hotel</th>
+<th data-quarto-table-cell-role="th">is_canceled</th>
+<th data-quarto-table-cell-role="th">lead_time</th>
+<th data-quarto-table-cell-role="th">arrival_date_year</th>
+<th data-quarto-table-cell-role="th">arrival_date_month</th>
+<th data-quarto-table-cell-role="th">arrival_date_week_number</th>
+<th data-quarto-table-cell-role="th">arrival_date_day_of_month</th>
+<th data-quarto-table-cell-role="th">stays_in_weekend_nights</th>
+<th data-quarto-table-cell-role="th">stays_in_week_nights</th>
+<th data-quarto-table-cell-role="th">adults</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">agent</th>
+<th data-quarto-table-cell-role="th">company</th>
+<th data-quarto-table-cell-role="th">days_in_waiting_list</th>
+<th data-quarto-table-cell-role="th">customer_type</th>
+<th data-quarto-table-cell-role="th">adr</th>
+<th data-quarto-table-cell-role="th">required_car_parking_spaces</th>
+<th data-quarto-table-cell-role="th">total_of_special_requests</th>
+<th data-quarto-table-cell-role="th">reservation_status</th>
+<th data-quarto-table-cell-role="th">reservation_status_date</th>
+<th data-quarto-table-cell-role="th">date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Resort Hotel</td>
+<td>0</td>
+<td>14</td>
+<td>2015</td>
+<td>July</td>
+<td>27</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>...</td>
+<td>240.0</td>
+<td>NaN</td>
+<td>0</td>
+<td>Transient</td>
+<td>98.00</td>
+<td>0</td>
+<td>1</td>
+<td>Check-Out</td>
+<td>2015-07-03</td>
+<td>2015-07-01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">22</td>
+<td>Resort Hotel</td>
+<td>0</td>
+<td>72</td>
+<td>2015</td>
+<td>July</td>
+<td>27</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>2</td>
+<td>...</td>
+<td>250.0</td>
+<td>NaN</td>
+<td>0</td>
+<td>Transient</td>
+<td>84.67</td>
+<td>0</td>
+<td>1</td>
+<td>Check-Out</td>
+<td>2015-07-07</td>
+<td>2015-07-01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">43</td>
+<td>Resort Hotel</td>
+<td>0</td>
+<td>70</td>
+<td>2015</td>
+<td>July</td>
+<td>27</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+<td>2</td>
+<td>...</td>
+<td>250.0</td>
+<td>NaN</td>
+<td>0</td>
+<td>Transient</td>
+<td>137.00</td>
+<td>0</td>
+<td>1</td>
+<td>Check-Out</td>
+<td>2015-07-07</td>
+<td>2015-07-02</td>
+</tr>
+</tbody>
+</table>
+
+<p>3 rows × 33 columns</p>
+</div>
+</div>
+</div>
+<div id="cell-11" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df.iloc[<span class="dv">4</span>:<span class="dv">6</span>].T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">4</th>
+<th data-quarto-table-cell-role="th">5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hotel</td>
+<td>Resort Hotel</td>
+<td>Resort Hotel</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">is_canceled</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">lead_time</td>
+<td>14</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">arrival_date_year</td>
+<td>2015</td>
+<td>2015</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_month</td>
+<td>July</td>
+<td>July</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">arrival_date_week_number</td>
+<td>27</td>
+<td>27</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_day_of_month</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">stays_in_weekend_nights</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">stays_in_week_nights</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">adults</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">children</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">babies</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">meal</td>
+<td>BB</td>
+<td>BB</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">country</td>
+<td>GBR</td>
+<td>GBR</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">market_segment</td>
+<td>Online TA</td>
+<td>Online TA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">distribution_channel</td>
+<td>TA/TO</td>
+<td>TA/TO</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">is_repeated_guest</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">previous_cancellations</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">previous_bookings_not_canceled</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">reserved_room_type</td>
+<td>A</td>
+<td>A</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">assigned_room_type</td>
+<td>A</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">booking_changes</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">deposit_type</td>
+<td>No Deposit</td>
+<td>No Deposit</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">agent</td>
+<td>240.0</td>
+<td>240.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">company</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">days_in_waiting_list</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">customer_type</td>
+<td>Transient</td>
+<td>Transient</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">adr</td>
+<td>98.0</td>
+<td>98.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">required_car_parking_spaces</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">total_of_special_requests</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">reservation_status</td>
+<td>Check-Out</td>
+<td>Check-Out</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">reservation_status_date</td>
+<td>2015-07-03 00:00:00</td>
+<td>2015-07-03 00:00:00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">date</td>
+<td>2015-07-01 00:00:00</td>
+<td>2015-07-01 00:00:00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-12" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df.iloc[<span class="dv">21</span>:<span class="dv">23</span>].T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">21</th>
+<th data-quarto-table-cell-role="th">22</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hotel</td>
+<td>Resort Hotel</td>
+<td>Resort Hotel</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">is_canceled</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">lead_time</td>
+<td>72</td>
+<td>72</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">arrival_date_year</td>
+<td>2015</td>
+<td>2015</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_month</td>
+<td>July</td>
+<td>July</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">arrival_date_week_number</td>
+<td>27</td>
+<td>27</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_day_of_month</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">stays_in_weekend_nights</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">stays_in_week_nights</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">adults</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">children</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">babies</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">meal</td>
+<td>BB</td>
+<td>BB</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">country</td>
+<td>PRT</td>
+<td>PRT</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">market_segment</td>
+<td>Direct</td>
+<td>Direct</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">distribution_channel</td>
+<td>Direct</td>
+<td>Direct</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">is_repeated_guest</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">previous_cancellations</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">previous_bookings_not_canceled</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">reserved_room_type</td>
+<td>A</td>
+<td>A</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">assigned_room_type</td>
+<td>A</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">booking_changes</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">deposit_type</td>
+<td>No Deposit</td>
+<td>No Deposit</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">agent</td>
+<td>250.0</td>
+<td>250.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">company</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">days_in_waiting_list</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">customer_type</td>
+<td>Transient</td>
+<td>Transient</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">adr</td>
+<td>84.67</td>
+<td>84.67</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">required_car_parking_spaces</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">total_of_special_requests</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">reservation_status</td>
+<td>Check-Out</td>
+<td>Check-Out</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">reservation_status_date</td>
+<td>2015-07-07 00:00:00</td>
+<td>2015-07-07 00:00:00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">date</td>
+<td>2015-07-01 00:00:00</td>
+<td>2015-07-01 00:00:00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-13" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df.drop_duplicates(inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>duplicados <span class="op">=</span> df.duplicated()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>num_duplicados <span class="op">=</span> duplicados.<span class="bu">sum</span>()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Número de registros duplicados: </span><span class="sc">{</span>num_duplicados<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Número de registros duplicados: 0
+(87396, 33)</code></pre>
+</div>
+</div>
+</section>
+<section id="consistencia-en-valores-categóricos" class="level3">
+<h3 class="anchored" data-anchor-id="consistencia-en-valores-categóricos"><strong>Consistencia en valores categóricos</strong></h3>
+<p>Identifica y corrige cualquier inconsistencia en los valores categóricos (por ejemplo, ‘Junior’, ‘junior’, ‘JUNIOR’)</p>
+<div id="cell-15" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>categorical_variables</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>['hotel',
+ 'arrival_date_month',
+ 'meal',
+ 'country',
+ 'market_segment',
+ 'distribution_channel',
+ 'reserved_room_type',
+ 'assigned_room_type',
+ 'deposit_type',
+ 'customer_type',
+ 'reservation_status']</code></pre>
+</div>
+</div>
+<div id="cell-16" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df.hotel.unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>['Resort Hotel', 'City Hotel']
+Categories (2, object): ['City Hotel', 'Resort Hotel']</code></pre>
+</div>
+</div>
+<div id="cell-17" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(df.arrival_date_month.unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>['July',
+ 'August',
+ 'September',
+ 'October',
+ 'November',
+ 'December',
+ 'January',
+ 'February',
+ 'March',
+ 'April',
+ 'May',
+ 'June']</code></pre>
+</div>
+</div>
+<div id="cell-18" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df.meal.unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>['BB', 'FB', 'HB', 'SC', 'Undefined']
+Categories (5, object): ['BB', 'FB', 'HB', 'SC', 'Undefined']</code></pre>
+</div>
+</div>
+<div id="cell-19" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df.country.unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>['PRT', 'GBR', 'USA', 'ESP', 'IRL', ..., 'KIR', 'SDN', 'ATF', 'SLE', 'LAO']
+Length: 178
+Categories (177, object): ['ABW', 'AGO', 'AIA', 'ALB', ..., 'VNM', 'ZAF', 'ZMB', 'ZWE']</code></pre>
+</div>
+</div>
+<div id="cell-20" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df.market_segment.unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>['Direct', 'Corporate', 'Online TA', 'Offline TA/TO', 'Complementary', 'Groups', 'Undefined', 'Aviation']
+Categories (8, object): ['Aviation', 'Complementary', 'Corporate', 'Direct', 'Groups', 'Offline TA/TO', 'Online TA', 'Undefined']</code></pre>
+</div>
+</div>
+<div id="cell-21" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df.distribution_channel.unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>['Direct', 'Corporate', 'TA/TO', 'Undefined', 'GDS']
+Categories (5, object): ['Corporate', 'Direct', 'GDS', 'TA/TO', 'Undefined']</code></pre>
+</div>
+</div>
+<div id="cell-22" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df.reserved_room_type.unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>['C', 'A', 'D', 'E', 'G', 'F', 'H', 'L', 'P', 'B']
+Categories (10, object): ['A', 'B', 'C', 'D', ..., 'G', 'H', 'L', 'P']</code></pre>
+</div>
+</div>
+<div id="cell-23" class="cell" data-execution_count="16">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(df.assigned_room_type.unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>['C', 'A', 'D', 'E', 'G', 'F', 'I', 'B', 'H', 'P', 'L', 'K']</code></pre>
+</div>
+</div>
+<div id="cell-24" class="cell" data-execution_count="17">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df.deposit_type.unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>['No Deposit', 'Refundable', 'Non Refund']
+Categories (3, object): ['No Deposit', 'Non Refund', 'Refundable']</code></pre>
+</div>
+</div>
+<div id="cell-25" class="cell" data-execution_count="18">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df.customer_type.unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>['Transient', 'Contract', 'Transient-Party', 'Group']
+Categories (4, object): ['Contract', 'Group', 'Transient', 'Transient-Party']</code></pre>
+</div>
+</div>
+<div id="cell-26" class="cell" data-execution_count="19">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df.reservation_status.unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>['Check-Out', 'Canceled', 'No-Show']
+Categories (3, object): ['Canceled', 'Check-Out', 'No-Show']</code></pre>
+</div>
+</div>
+<div id="cell-27" class="cell" data-execution_count="20">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert all categorical variables to lowercase and strip whitespace</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>df[categorical_variables] <span class="op">=</span> df[categorical_variables].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.<span class="bu">str</span>.lower().<span class="bu">str</span>.strip())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="manejo-de-valores-faltantes-identifica-y-maneja-cualquier-valor-faltante-en-el-dataset.-rellena-los-valores-faltantes-con-un-marcador-adecuado-para-el-tipo-de-dato" class="level3">
+<h3 class="anchored" data-anchor-id="manejo-de-valores-faltantes-identifica-y-maneja-cualquier-valor-faltante-en-el-dataset.-rellena-los-valores-faltantes-con-un-marcador-adecuado-para-el-tipo-de-dato"><strong>Manejo de valores faltantes: Identifica y maneja cualquier valor faltante en el dataset. Rellena los valores faltantes con un marcador adecuado para el tipo de dato</strong></h3>
+<div id="cell-29" class="cell" data-execution_count="21">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>utils.calculate_na_statistics(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">datos sin NAs en q</th>
+<th data-quarto-table-cell-role="th">Na en q</th>
+<th data-quarto-table-cell-role="th">Na en %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">company</td>
+<td>5259</td>
+<td>82137</td>
+<td>93.98</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">agent</td>
+<td>75203</td>
+<td>12193</td>
+<td>13.95</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">country</td>
+<td>86944</td>
+<td>452</td>
+<td>0.52</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">hotel</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">reserved_room_type</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">assigned_room_type</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">booking_changes</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">deposit_type</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">days_in_waiting_list</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">previous_cancellations</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">customer_type</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">adr</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">required_car_parking_spaces</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">total_of_special_requests</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">reservation_status</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">reservation_status_date</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">previous_bookings_not_canceled</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">is_repeated_guest</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">is_canceled</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">distribution_channel</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">market_segment</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">meal</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">babies</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">children</td>
+<td>87392</td>
+<td>4</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">adults</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">stays_in_week_nights</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">stays_in_weekend_nights</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">arrival_date_day_of_month</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_week_number</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">arrival_date_month</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_year</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">lead_time</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">date</td>
+<td>87396</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-30" class="cell" data-execution_count="22">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Elimina la variable 'company' ya que tiene una cantidad de NA's que la hace inutil</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>df.drop(columns<span class="op">=</span>[<span class="st">'company'</span>],inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># reeemplazamos los valores faltantes de country y agent con "no identificado"</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'country'</span>, <span class="st">'agent'</span>]] <span class="op">=</span> df[[<span class="st">'country'</span>, <span class="st">'agent'</span>]].fillna(<span class="st">"no identificado"</span>)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>utils.calculate_na_statistics(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">datos sin NAs en q</th>
+<th data-quarto-table-cell-role="th">Na en q</th>
+<th data-quarto-table-cell-role="th">Na en %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hotel</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">is_canceled</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">reservation_status_date</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">reservation_status</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">total_of_special_requests</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">required_car_parking_spaces</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">adr</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">customer_type</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">days_in_waiting_list</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">agent</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">deposit_type</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">booking_changes</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">assigned_room_type</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">reserved_room_type</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">previous_bookings_not_canceled</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">previous_cancellations</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">is_repeated_guest</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">distribution_channel</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">market_segment</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">country</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">meal</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">babies</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">children</td>
+<td>87392</td>
+<td>4</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">adults</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">stays_in_week_nights</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">stays_in_weekend_nights</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_day_of_month</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">arrival_date_week_number</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_month</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">arrival_date_year</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">lead_time</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">date</td>
+<td>87396</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="detección-de-datos-anómalos-identifica-y-corrige-cualquier-punto-de-dato-inapropiado-o-inusual-por-ejemplo-un-salario-anual-de-1-millón-de-dólares-para-un-puesto-de-entrada." class="level3">
+<h3 class="anchored" data-anchor-id="detección-de-datos-anómalos-identifica-y-corrige-cualquier-punto-de-dato-inapropiado-o-inusual-por-ejemplo-un-salario-anual-de-1-millón-de-dólares-para-un-puesto-de-entrada."><strong>Detección de datos anómalos: Identifica y corrige cualquier punto de dato inapropiado o inusual (por ejemplo, un salario anual de 1 millón de dólares para un puesto de entrada).</strong></h3>
+<div id="cell-32" class="cell" data-execution_count="23">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify numerical columns</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>numerical_columns <span class="op">=</span> df.select_dtypes(include<span class="op">=</span>[np.number]).columns</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a summary DataFrame for outliers</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>outliers_summary <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> column <span class="kw">in</span> numerical_columns:</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    outliers <span class="op">=</span> utils.detect_outliers_iqr(df[column])</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    outliers_summary[column] <span class="op">=</span> {</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Number of Outliers'</span>: outliers.<span class="bu">sum</span>(),</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Percentage of Outliers'</span>: <span class="dv">100</span> <span class="op">*</span> outliers.mean(),</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Lower Bound'</span>: df[column][<span class="op">~</span>outliers].<span class="bu">min</span>(),</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Upper Bound'</span>: df[column][<span class="op">~</span>outliers].<span class="bu">max</span>()</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the summary to a CSV file</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>outliers_summary.T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Number of Outliers</th>
+<th data-quarto-table-cell-role="th">Percentage of Outliers</th>
+<th data-quarto-table-cell-role="th">Lower Bound</th>
+<th data-quarto-table-cell-role="th">Upper Bound</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">is_canceled</td>
+<td>0.0</td>
+<td>0.000000</td>
+<td>0.00</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">lead_time</td>
+<td>2396.0</td>
+<td>2.741544</td>
+<td>0.00</td>
+<td>296.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_year</td>
+<td>0.0</td>
+<td>0.000000</td>
+<td>2015.00</td>
+<td>2017.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">arrival_date_week_number</td>
+<td>0.0</td>
+<td>0.000000</td>
+<td>1.00</td>
+<td>53.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_day_of_month</td>
+<td>0.0</td>
+<td>0.000000</td>
+<td>1.00</td>
+<td>31.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">stays_in_weekend_nights</td>
+<td>220.0</td>
+<td>0.251728</td>
+<td>0.00</td>
+<td>5.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">stays_in_week_nights</td>
+<td>1531.0</td>
+<td>1.751796</td>
+<td>0.00</td>
+<td>8.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">adults</td>
+<td>22899.0</td>
+<td>26.201428</td>
+<td>2.00</td>
+<td>2.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">children</td>
+<td>8364.0</td>
+<td>9.570232</td>
+<td>0.00</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">babies</td>
+<td>914.0</td>
+<td>1.045814</td>
+<td>0.00</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">is_repeated_guest</td>
+<td>3415.0</td>
+<td>3.907501</td>
+<td>0.00</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">previous_cancellations</td>
+<td>1685.0</td>
+<td>1.928006</td>
+<td>0.00</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">previous_bookings_not_canceled</td>
+<td>3545.0</td>
+<td>4.056250</td>
+<td>0.00</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">booking_changes</td>
+<td>15902.0</td>
+<td>18.195341</td>
+<td>0.00</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">days_in_waiting_list</td>
+<td>860.0</td>
+<td>0.984027</td>
+<td>0.00</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">adr</td>
+<td>2490.0</td>
+<td>2.849101</td>
+<td>-6.38</td>
+<td>227.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">required_car_parking_spaces</td>
+<td>7313.0</td>
+<td>8.367660</td>
+<td>0.00</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">total_of_special_requests</td>
+<td>2673.0</td>
+<td>3.058492</td>
+<td>0.00</td>
+<td>2.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-33" class="cell" data-execution_count="24">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df[numerical_columns].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">is_canceled</th>
+<th data-quarto-table-cell-role="th">lead_time</th>
+<th data-quarto-table-cell-role="th">arrival_date_year</th>
+<th data-quarto-table-cell-role="th">arrival_date_week_number</th>
+<th data-quarto-table-cell-role="th">arrival_date_day_of_month</th>
+<th data-quarto-table-cell-role="th">stays_in_weekend_nights</th>
+<th data-quarto-table-cell-role="th">stays_in_week_nights</th>
+<th data-quarto-table-cell-role="th">adults</th>
+<th data-quarto-table-cell-role="th">children</th>
+<th data-quarto-table-cell-role="th">babies</th>
+<th data-quarto-table-cell-role="th">is_repeated_guest</th>
+<th data-quarto-table-cell-role="th">previous_cancellations</th>
+<th data-quarto-table-cell-role="th">previous_bookings_not_canceled</th>
+<th data-quarto-table-cell-role="th">booking_changes</th>
+<th data-quarto-table-cell-role="th">days_in_waiting_list</th>
+<th data-quarto-table-cell-role="th">adr</th>
+<th data-quarto-table-cell-role="th">required_car_parking_spaces</th>
+<th data-quarto-table-cell-role="th">total_of_special_requests</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87392.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+<td>87396.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>0.274898</td>
+<td>79.891368</td>
+<td>2016.210296</td>
+<td>26.838334</td>
+<td>15.815541</td>
+<td>1.005263</td>
+<td>2.625395</td>
+<td>1.875795</td>
+<td>0.138640</td>
+<td>0.010824</td>
+<td>0.039075</td>
+<td>0.030413</td>
+<td>0.183990</td>
+<td>0.271603</td>
+<td>0.749565</td>
+<td>106.337246</td>
+<td>0.084226</td>
+<td>0.698567</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>0.446466</td>
+<td>86.052325</td>
+<td>0.686102</td>
+<td>13.674572</td>
+<td>8.835146</td>
+<td>1.031921</td>
+<td>2.053584</td>
+<td>0.626500</td>
+<td>0.455881</td>
+<td>0.113597</td>
+<td>0.193775</td>
+<td>0.369145</td>
+<td>1.731894</td>
+<td>0.727245</td>
+<td>10.015731</td>
+<td>55.013953</td>
+<td>0.281533</td>
+<td>0.831946</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>2015.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>-6.380000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.000000</td>
+<td>11.000000</td>
+<td>2016.000000</td>
+<td>16.000000</td>
+<td>8.000000</td>
+<td>0.000000</td>
+<td>1.000000</td>
+<td>2.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>72.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>0.000000</td>
+<td>49.000000</td>
+<td>2016.000000</td>
+<td>27.000000</td>
+<td>16.000000</td>
+<td>1.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>98.100000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>1.000000</td>
+<td>125.000000</td>
+<td>2017.000000</td>
+<td>37.000000</td>
+<td>23.000000</td>
+<td>2.000000</td>
+<td>4.000000</td>
+<td>2.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>134.000000</td>
+<td>0.000000</td>
+<td>1.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>1.000000</td>
+<td>737.000000</td>
+<td>2017.000000</td>
+<td>53.000000</td>
+<td>31.000000</td>
+<td>19.000000</td>
+<td>50.000000</td>
+<td>55.000000</td>
+<td>10.000000</td>
+<td>10.000000</td>
+<td>1.000000</td>
+<td>26.000000</td>
+<td>72.000000</td>
+<td>21.000000</td>
+<td>391.000000</td>
+<td>5400.000000</td>
+<td>8.000000</td>
+<td>5.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-34" class="cell" data-execution_count="25">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify columns with more than 5% of outliers</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>columns_with_outliers <span class="op">=</span> outliers_summary.columns[outliers_summary.loc[<span class="st">'Percentage of Outliers'</span>] <span class="op">&gt;</span> <span class="dv">5</span>]</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the original DataFrame to include only these columns</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>df_outliers <span class="op">=</span> df[columns_with_outliers]</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create separate box plots for each column with more than 5% outliers in a 2x2 grid</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">12</span>))</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, column <span class="kw">in</span> <span class="bu">enumerate</span>(columns_with_outliers, <span class="dv">1</span>):</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    plt.subplot(<span class="dv">2</span>, <span class="dv">2</span>, i)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    plt.boxplot(df_outliers[column].dropna(), vert<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f"Boxplot para la variable </span><span class="sc">{</span>column<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Cantidad"</span>)</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hotel_booking_files/figure-html/cell-26-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exploración-de-datos-con-python" class="level2">
+<h2 class="anchored" data-anchor-id="exploración-de-datos-con-python"><strong>Exploración de datos con Python</strong></h2>
+<section id="visualizaciones-exploratorias-univariadas" class="level3">
+<h3 class="anchored" data-anchor-id="visualizaciones-exploratorias-univariadas"><strong>Visualizaciones exploratorias univariadas</strong></h3>
+<p>Crea dos tipos diferentes de visualizaciones univariadas. Cada visualización debe incluir una breve interpretación dentro del archivo de código</p>
+<section id="histograma-de-cantidad-de-adultos-en-la-reserva" class="level4">
+<h4 class="anchored" data-anchor-id="histograma-de-cantidad-de-adultos-en-la-reserva">Histograma de cantidad de adultos en la reserva</h4>
+<div id="cell-38" class="cell" data-execution_count="26">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the figure</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.histogram(df, x<span class="op">=</span><span class="st">'adults'</span>, nbins<span class="op">=</span><span class="dv">100</span>, title<span class="op">=</span><span class="st">'Histograma cantidad de adultos en la reserva'</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the figure as HTML to ensure compatibility with Quarto rendering</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># HTML(fig.to_html())</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>fig.write_image(<span class="st">"../data/kaggle/hotel-booking/histogram_adults.png"</span>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>Image(<span class="st">"../data/kaggle/hotel-booking/histogram_adults.png"</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co">#fig.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<div>
+<figure class="figure">
+<p><img src="hotel_booking_files/figure-html/cell-27-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-39" class="cell" data-execution_count="27">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate IQR to filter outliers</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>Q1 <span class="op">=</span> df[<span class="st">'adults'</span>].quantile(<span class="fl">0.25</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>Q3 <span class="op">=</span> df[<span class="st">'adults'</span>].quantile(<span class="fl">0.75</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>IQR <span class="op">=</span> Q3 <span class="op">-</span> Q1</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="op">=</span> Q1 <span class="op">-</span> <span class="fl">1.5</span> <span class="op">*</span> IQR</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="op">=</span> Q3 <span class="op">+</span> <span class="fl">1.5</span> <span class="op">*</span> IQR</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter data to remove outliers</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>df_no_outliers <span class="op">=</span> df[(df[<span class="st">'adults'</span>] <span class="op">&gt;=</span> lower_bound) <span class="op">&amp;</span> (df[<span class="st">'adults'</span>] <span class="op">&lt;=</span> upper_bound)]</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the histogram without outliers</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.histogram(df_no_outliers, x<span class="op">=</span><span class="st">'adults'</span>, nbins<span class="op">=</span><span class="dv">10</span>, title<span class="op">=</span><span class="st">'Histograma cantidad de adultos en la reserva (sin outliers)'</span>)</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the figure as an image for Quarto compatibility</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>fig.write_image(<span class="st">"../data/kaggle/hotel-booking/histogram_adults_no_outliers.png"</span>)</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>Image(<span class="st">"../data/kaggle/hotel-booking/histogram_adults_no_outliers.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<div>
+<figure class="figure">
+<p><img src="hotel_booking_files/figure-html/cell-28-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="histograma-de-cambios-en-la-reserva" class="level4">
+<h4 class="anchored" data-anchor-id="histograma-de-cambios-en-la-reserva">Histograma de cambios en la reserva</h4>
+<div id="cell-41" class="cell" data-execution_count="28">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the figure</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.histogram(df, x<span class="op">=</span><span class="st">'booking_changes'</span>, nbins<span class="op">=</span><span class="dv">50</span>, title<span class="op">=</span><span class="st">'Histograma cantidad de cambios en la reserva'</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the figure as HTML to ensure compatibility with Quarto rendering</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># HTML(fig.to_html())</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>fig.write_image(<span class="st">"../data/kaggle/hotel-booking/histogram_booking_changes.png"</span>)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>Image(<span class="st">"../data/kaggle/hotel-booking/histogram_booking_changes.png"</span>)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co">#fig.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div>
+<figure class="figure">
+<p><img src="hotel_booking_files/figure-html/cell-29-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-42" class="cell" data-execution_count="29">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count unique values in the 'country' column</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>country_counts <span class="op">=</span> Counter(df[<span class="st">'country'</span>])</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the Counter to a DataFrame for easier manipulation</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>country_df <span class="op">=</span> pd.DataFrame(country_counts.items(), columns<span class="op">=</span>[<span class="st">'Country'</span>, <span class="st">'Count'</span>]).sort_values(by<span class="op">=</span><span class="st">'Count'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate cumulative percentage</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>country_df[<span class="st">'Cumulative Percentage'</span>] <span class="op">=</span> country_df[<span class="st">'Count'</span>].cumsum() <span class="op">/</span> country_df[<span class="st">'Count'</span>].<span class="bu">sum</span>() <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to include only the top countries making up 80% of the total</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>top_80_df <span class="op">=</span> country_df[country_df[<span class="st">'Cumulative Percentage'</span>] <span class="op">&lt;=</span> <span class="dv">80</span>]</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the bar chart</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>plt.bar(top_80_df[<span class="st">'Country'</span>], top_80_df[<span class="st">'Count'</span>], color<span class="op">=</span><span class="st">'skyblue'</span>)</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Country"</span>)</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Count"</span>)</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Top 80</span><span class="sc">% d</span><span class="st">e los paises de origen de los clientes que reservan (80-20 Rule)"</span>)</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hotel_booking_files/figure-html/cell-30-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="visualizaciones-exploratorias-multivariadas" class="level3">
+<h3 class="anchored" data-anchor-id="visualizaciones-exploratorias-multivariadas"><strong>Visualizaciones exploratorias multivariadas</strong></h3>
+<p>Crea dos tipos diferentes de visualizaciones multivariadas. Cada visualización debe incluir una breve interpretación dentro del archivo de código</p>
+<div id="cell-44" class="cell" data-execution_count="30">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>df.iloc[<span class="dv">4</span>:<span class="dv">6</span>].T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">4</th>
+<th data-quarto-table-cell-role="th">6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">hotel</td>
+<td>resort hotel</td>
+<td>resort hotel</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">is_canceled</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">lead_time</td>
+<td>14</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">arrival_date_year</td>
+<td>2015</td>
+<td>2015</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_month</td>
+<td>july</td>
+<td>july</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">arrival_date_week_number</td>
+<td>27</td>
+<td>27</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_day_of_month</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">stays_in_weekend_nights</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">stays_in_week_nights</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">adults</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">children</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">babies</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">meal</td>
+<td>bb</td>
+<td>bb</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">country</td>
+<td>gbr</td>
+<td>prt</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">market_segment</td>
+<td>online ta</td>
+<td>direct</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">distribution_channel</td>
+<td>ta/to</td>
+<td>direct</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">is_repeated_guest</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">previous_cancellations</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">previous_bookings_not_canceled</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">reserved_room_type</td>
+<td>a</td>
+<td>c</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">assigned_room_type</td>
+<td>a</td>
+<td>c</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">booking_changes</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">deposit_type</td>
+<td>no deposit</td>
+<td>no deposit</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">agent</td>
+<td>240.0</td>
+<td>no identificado</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">days_in_waiting_list</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">customer_type</td>
+<td>transient</td>
+<td>transient</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">adr</td>
+<td>98.0</td>
+<td>107.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">required_car_parking_spaces</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">total_of_special_requests</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">reservation_status</td>
+<td>check-out</td>
+<td>check-out</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">reservation_status_date</td>
+<td>2015-07-03 00:00:00</td>
+<td>2015-07-03 00:00:00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">date</td>
+<td>2015-07-01 00:00:00</td>
+<td>2015-07-01 00:00:00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-45" class="cell" data-execution_count="31">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>numerical_columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>Index(['is_canceled', 'lead_time', 'arrival_date_year',
+       'arrival_date_week_number', 'arrival_date_day_of_month',
+       'stays_in_weekend_nights', 'stays_in_week_nights', 'adults', 'children',
+       'babies', 'is_repeated_guest', 'previous_cancellations',
+       'previous_bookings_not_canceled', 'booking_changes',
+       'days_in_waiting_list', 'adr', 'required_car_parking_spaces',
+       'total_of_special_requests'],
+      dtype='object')</code></pre>
+</div>
+</div>
+<div id="cell-46" class="cell" data-execution_count="32">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>booking_behaviour_columns <span class="op">=</span> [<span class="st">'lead_time'</span>,<span class="st">'stays_in_weekend_nights'</span>, <span class="st">'stays_in_week_nights'</span>,<span class="st">'days_in_waiting_list'</span>] </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>family_columns <span class="op">=</span> [<span class="st">'adults'</span>, <span class="st">'children'</span>,<span class="st">'babies'</span>,<span class="st">'required_car_parking_spaces'</span>,<span class="st">'total_of_special_requests'</span>]</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>booking_history <span class="op">=</span> [<span class="st">'is_repeated_guest'</span>, <span class="st">'previous_cancellations'</span>,<span class="st">'previous_bookings_not_canceled'</span>, <span class="st">'booking_changes'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-47" class="cell" data-execution_count="33">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>df.groupby([<span class="st">'arrival_date_year'</span>,<span class="st">'is_canceled'</span>])[family_columns].describe().T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">arrival_date_year</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">2015</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">2016</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">2017</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">is_canceled</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">adults</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2704.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>1.797153</td>
+<td>1.975962</td>
+<td>1.846070</td>
+<td>1.929604</td>
+<td>1.864730</td>
+<td>1.987145</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>0.488699</td>
+<td>2.109247</td>
+<td>0.527881</td>
+<td>0.493507</td>
+<td>0.515949</td>
+<td>0.476954</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>4.000000</td>
+<td>55.000000</td>
+<td>4.000000</td>
+<td>4.000000</td>
+<td>4.000000</td>
+<td>4.000000</td>
+</tr>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">children</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2700.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>0.096145</td>
+<td>0.118148</td>
+<td>0.118077</td>
+<td>0.185849</td>
+<td>0.133695</td>
+<td>0.210323</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>0.383966</td>
+<td>0.474356</td>
+<td>0.416347</td>
+<td>0.525590</td>
+<td>0.442928</td>
+<td>0.557746</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>3.000000</td>
+<td>10.000000</td>
+<td>3.000000</td>
+<td>3.000000</td>
+<td>3.000000</td>
+<td>3.000000</td>
+</tr>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">babies</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2704.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>0.017061</td>
+<td>0.015163</td>
+<td>0.011705</td>
+<td>0.008655</td>
+<td>0.010705</td>
+<td>0.003065</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>0.154712</td>
+<td>0.122222</td>
+<td>0.121818</td>
+<td>0.094537</td>
+<td>0.105139</td>
+<td>0.055284</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>9.000000</td>
+<td>1.000000</td>
+<td>10.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>1.000000</td>
+</tr>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">required_car_parking_spaces</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2704.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>0.125460</td>
+<td>0.000000</td>
+<td>0.122599</td>
+<td>0.000000</td>
+<td>0.102275</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>0.332391</td>
+<td>0.000000</td>
+<td>0.329348</td>
+<td>0.000000</td>
+<td>0.314278</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>2.000000</td>
+<td>0.000000</td>
+<td>3.000000</td>
+<td>0.000000</td>
+<td>8.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">total_of_special_requests</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2704.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>0.644264</td>
+<td>0.629438</td>
+<td>0.734567</td>
+<td>0.448519</td>
+<td>0.854581</td>
+<td>0.607238</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>0.825422</td>
+<td>0.812567</td>
+<td>0.811809</td>
+<td>0.716558</td>
+<td>0.904200</td>
+<td>0.778973</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>1.000000</td>
+<td>0.000000</td>
+<td>1.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>5.000000</td>
+<td>4.000000</td>
+<td>5.000000</td>
+<td>5.000000</td>
+<td>5.000000</td>
+<td>5.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-48" class="cell" data-execution_count="34">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> df.groupby([<span class="st">'arrival_date_year'</span>,<span class="st">'is_canceled'</span>])[<span class="st">'required_car_parking_spaces'</span>].describe().reset_index()</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>grouped </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">arrival_date_year</th>
+<th data-quarto-table-cell-role="th">is_canceled</th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">25%</th>
+<th data-quarto-table-cell-role="th">50%</th>
+<th data-quarto-table-cell-role="th">75%</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2015</td>
+<td>0</td>
+<td>10609.0</td>
+<td>0.125460</td>
+<td>0.332391</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>2.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2015</td>
+<td>1</td>
+<td>2704.0</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2016</td>
+<td>0</td>
+<td>31183.0</td>
+<td>0.122599</td>
+<td>0.329348</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>3.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2016</td>
+<td>1</td>
+<td>11208.0</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2017</td>
+<td>0</td>
+<td>21579.0</td>
+<td>0.102275</td>
+<td>0.314278</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>8.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2017</td>
+<td>1</td>
+<td>10113.0</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-49" class="cell" data-execution_count="35">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'is_canceled' to a categorical label (e.g., "Canceled" or "Not Canceled")</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>grouped[<span class="st">'cancel_status'</span>] <span class="op">=</span> grouped[<span class="st">'is_canceled'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'Canceled'</span> <span class="cf">if</span> x <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">'Not Canceled'</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar plot with separate bars for each year and cancellation status</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.bar(</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    grouped,</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'arrival_date_year'</span>, </span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'mean'</span>, </span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'cancel_status'</span>,  <span class="co"># Different colors for canceled and not canceled</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Cantidad de estacionamientos requeridos por año de la reserva y estado de cancelación'</span>,</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    barmode<span class="op">=</span><span class="st">'group'</span>,  <span class="co"># Groups by year and cancellation status</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{<span class="st">'mean'</span>: <span class="st">'Cantidad Promedio'</span>, <span class="st">'arrival_date_year'</span>: <span class="st">'Año de la Reserva'</span>, <span class="st">'cancel_status'</span>: <span class="st">'Estado de Cancelación'</span>}</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>Unable to display output for mime type(s): application/vnd.plotly.v1+json</code></pre>
+</div>
+</div>
+<div id="cell-50" class="cell" data-execution_count="36">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> df.groupby([<span class="st">'arrival_date_year'</span>,<span class="st">'is_canceled'</span>])[<span class="st">'children'</span>].describe().reset_index()</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>grouped </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">arrival_date_year</th>
+<th data-quarto-table-cell-role="th">is_canceled</th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">25%</th>
+<th data-quarto-table-cell-role="th">50%</th>
+<th data-quarto-table-cell-role="th">75%</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2015</td>
+<td>0</td>
+<td>10609.0</td>
+<td>0.096145</td>
+<td>0.383966</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>3.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2015</td>
+<td>1</td>
+<td>2700.0</td>
+<td>0.118148</td>
+<td>0.474356</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>10.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2016</td>
+<td>0</td>
+<td>31183.0</td>
+<td>0.118077</td>
+<td>0.416347</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>3.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2016</td>
+<td>1</td>
+<td>11208.0</td>
+<td>0.185849</td>
+<td>0.525590</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>3.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2017</td>
+<td>0</td>
+<td>21579.0</td>
+<td>0.133695</td>
+<td>0.442928</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>3.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2017</td>
+<td>1</td>
+<td>10113.0</td>
+<td>0.210323</td>
+<td>0.557746</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>3.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-51" class="cell" data-execution_count="37">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'is_canceled' to a categorical label (e.g., "Canceled" or "Not Canceled")</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>grouped[<span class="st">'cancel_status'</span>] <span class="op">=</span> grouped[<span class="st">'is_canceled'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'Canceled'</span> <span class="cf">if</span> x <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">'Not Canceled'</span>)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar plot with separate bars for each year and cancellation status</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.bar(</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>    grouped,</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'arrival_date_year'</span>, </span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'mean'</span>, </span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'cancel_status'</span>,  <span class="co"># Different colors for canceled and not canceled</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Cantidad de niños en la reserva y estado de cancelación'</span>,</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>    barmode<span class="op">=</span><span class="st">'group'</span>,  <span class="co"># Groups by year and cancellation status</span></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{<span class="st">'mean'</span>: <span class="st">'Cantidad Promedio'</span>,  <span class="st">'arrival_date_year'</span>: <span class="st">'Año de la Reserva'</span>, <span class="st">'cancel_status'</span>: <span class="st">'Estado de Cancelación'</span>}</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>Unable to display output for mime type(s): application/vnd.plotly.v1+json</code></pre>
+</div>
+</div>
+<div id="cell-52" class="cell" data-execution_count="38">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>df.groupby([<span class="st">'arrival_date_year'</span>,<span class="st">'is_canceled'</span>])[booking_behaviour_columns].describe().T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">arrival_date_year</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">2015</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">2016</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">2017</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">is_canceled</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">lead_time</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2704.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>50.396550</td>
+<td>91.242604</td>
+<td>69.520091</td>
+<td>95.052373</td>
+<td>80.623708</td>
+<td>121.411846</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>65.472486</td>
+<td>89.188363</td>
+<td>80.844854</td>
+<td>84.309197</td>
+<td>87.833023</td>
+<td>98.094950</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>4.000000</td>
+<td>23.000000</td>
+<td>6.000000</td>
+<td>30.000000</td>
+<td>9.000000</td>
+<td>39.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>24.000000</td>
+<td>65.000000</td>
+<td>38.000000</td>
+<td>70.000000</td>
+<td>47.000000</td>
+<td>101.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>72.000000</td>
+<td>123.000000</td>
+<td>109.000000</td>
+<td>142.000000</td>
+<td>131.000000</td>
+<td>180.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>737.000000</td>
+<td>414.000000</td>
+<td>709.000000</td>
+<td>626.000000</td>
+<td>518.000000</td>
+<td>629.000000</td>
+</tr>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">stays_in_weekend_nights</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2704.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>1.014893</td>
+<td>1.123891</td>
+<td>0.941058</td>
+<td>1.080032</td>
+<td>0.981000</td>
+<td>1.130327</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>1.052884</td>
+<td>1.093061</td>
+<td>0.996268</td>
+<td>1.073759</td>
+<td>1.016779</td>
+<td>1.066158</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>18.000000</td>
+<td>9.000000</td>
+<td>19.000000</td>
+<td>12.000000</td>
+<td>16.000000</td>
+<td>16.000000</td>
+</tr>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">stays_in_week_nights</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2704.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>2.681874</td>
+<td>3.017382</td>
+<td>2.434949</td>
+<td>2.819147</td>
+<td>2.564901</td>
+<td>2.962919</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>2.125345</td>
+<td>2.258718</td>
+<td>1.950857</td>
+<td>2.158658</td>
+<td>2.003887</td>
+<td>2.134683</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>2.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>2.000000</td>
+<td>3.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>2.000000</td>
+<td>3.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>4.000000</td>
+<td>4.000000</td>
+<td>3.000000</td>
+<td>4.000000</td>
+<td>3.000000</td>
+<td>4.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>42.000000</td>
+<td>24.000000</td>
+<td>50.000000</td>
+<td>30.000000</td>
+<td>40.000000</td>
+<td>40.000000</td>
+</tr>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">days_in_waiting_list</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2704.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>1.051937</td>
+<td>0.522189</td>
+<td>0.958952</td>
+<td>1.201374</td>
+<td>0.217480</td>
+<td>0.482152</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>9.158208</td>
+<td>6.654206</td>
+<td>12.230956</td>
+<td>14.243158</td>
+<td>4.616332</td>
+<td>5.865777</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>122.000000</td>
+<td>122.000000</td>
+<td>379.000000</td>
+<td>391.000000</td>
+<td>223.000000</td>
+<td>183.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-53" class="cell" data-execution_count="39">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> df.groupby([<span class="st">'arrival_date_year'</span>,<span class="st">'is_canceled'</span>])[<span class="st">'lead_time'</span>].describe().reset_index()</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>grouped </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">arrival_date_year</th>
+<th data-quarto-table-cell-role="th">is_canceled</th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">25%</th>
+<th data-quarto-table-cell-role="th">50%</th>
+<th data-quarto-table-cell-role="th">75%</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2015</td>
+<td>0</td>
+<td>10609.0</td>
+<td>50.396550</td>
+<td>65.472486</td>
+<td>0.0</td>
+<td>4.0</td>
+<td>24.0</td>
+<td>72.0</td>
+<td>737.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2015</td>
+<td>1</td>
+<td>2704.0</td>
+<td>91.242604</td>
+<td>89.188363</td>
+<td>0.0</td>
+<td>23.0</td>
+<td>65.0</td>
+<td>123.0</td>
+<td>414.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2016</td>
+<td>0</td>
+<td>31183.0</td>
+<td>69.520091</td>
+<td>80.844854</td>
+<td>0.0</td>
+<td>6.0</td>
+<td>38.0</td>
+<td>109.0</td>
+<td>709.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2016</td>
+<td>1</td>
+<td>11208.0</td>
+<td>95.052373</td>
+<td>84.309197</td>
+<td>0.0</td>
+<td>30.0</td>
+<td>70.0</td>
+<td>142.0</td>
+<td>626.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2017</td>
+<td>0</td>
+<td>21579.0</td>
+<td>80.623708</td>
+<td>87.833023</td>
+<td>0.0</td>
+<td>9.0</td>
+<td>47.0</td>
+<td>131.0</td>
+<td>518.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2017</td>
+<td>1</td>
+<td>10113.0</td>
+<td>121.411846</td>
+<td>98.094950</td>
+<td>0.0</td>
+<td>39.0</td>
+<td>101.0</td>
+<td>180.0</td>
+<td>629.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-54" class="cell" data-execution_count="40">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'is_canceled' to a categorical label (e.g., "Canceled" or "Not Canceled")</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>grouped[<span class="st">'cancel_status'</span>] <span class="op">=</span> grouped[<span class="st">'is_canceled'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'Canceled'</span> <span class="cf">if</span> x <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">'Not Canceled'</span>)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar plot with separate bars for each year and cancellation status</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.bar(</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    grouped,</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'arrival_date_year'</span>, </span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'mean'</span>, </span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'cancel_status'</span>,  <span class="co"># Different colors for canceled and not canceled</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Lead time en la reserva y estado de cancelación'</span>,</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>    barmode<span class="op">=</span><span class="st">'group'</span>,  <span class="co"># Groups by year and cancellation status</span></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{<span class="st">'mean'</span>: <span class="st">'Cantidad Promedio'</span>,  <span class="st">'arrival_date_year'</span>: <span class="st">'Año de la Reserva'</span>, <span class="st">'cancel_status'</span>: <span class="st">'Estado de Cancelación'</span>}</span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>Unable to display output for mime type(s): application/vnd.plotly.v1+json</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="análisis-adicional" class="level2">
+<h2 class="anchored" data-anchor-id="análisis-adicional"><strong>Análisis adicional:</strong></h2>
+<section id="estadísticas-descriptivas" class="level3">
+<h3 class="anchored" data-anchor-id="estadísticas-descriptivas"><strong>Estadísticas descriptivas</strong></h3>
+<p>Proporciona un resumen estadístico del dataset, incluyendo medidas de tendencia central y dispersión para las variables numéricas</p>
+<div id="cell-57" class="cell" data-execution_count="41">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>df[numerical_columns].describe().T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">25%</th>
+<th data-quarto-table-cell-role="th">50%</th>
+<th data-quarto-table-cell-role="th">75%</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">is_canceled</td>
+<td>87396.0</td>
+<td>0.274898</td>
+<td>0.446466</td>
+<td>0.00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">lead_time</td>
+<td>87396.0</td>
+<td>79.891368</td>
+<td>86.052325</td>
+<td>0.00</td>
+<td>11.0</td>
+<td>49.0</td>
+<td>125.0</td>
+<td>737.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_year</td>
+<td>87396.0</td>
+<td>2016.210296</td>
+<td>0.686102</td>
+<td>2015.00</td>
+<td>2016.0</td>
+<td>2016.0</td>
+<td>2017.0</td>
+<td>2017.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">arrival_date_week_number</td>
+<td>87396.0</td>
+<td>26.838334</td>
+<td>13.674572</td>
+<td>1.00</td>
+<td>16.0</td>
+<td>27.0</td>
+<td>37.0</td>
+<td>53.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">arrival_date_day_of_month</td>
+<td>87396.0</td>
+<td>15.815541</td>
+<td>8.835146</td>
+<td>1.00</td>
+<td>8.0</td>
+<td>16.0</td>
+<td>23.0</td>
+<td>31.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">stays_in_weekend_nights</td>
+<td>87396.0</td>
+<td>1.005263</td>
+<td>1.031921</td>
+<td>0.00</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>19.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">stays_in_week_nights</td>
+<td>87396.0</td>
+<td>2.625395</td>
+<td>2.053584</td>
+<td>0.00</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>4.0</td>
+<td>50.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">adults</td>
+<td>87396.0</td>
+<td>1.875795</td>
+<td>0.626500</td>
+<td>0.00</td>
+<td>2.0</td>
+<td>2.0</td>
+<td>2.0</td>
+<td>55.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">children</td>
+<td>87392.0</td>
+<td>0.138640</td>
+<td>0.455881</td>
+<td>0.00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>10.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">babies</td>
+<td>87396.0</td>
+<td>0.010824</td>
+<td>0.113597</td>
+<td>0.00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>10.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">is_repeated_guest</td>
+<td>87396.0</td>
+<td>0.039075</td>
+<td>0.193775</td>
+<td>0.00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">previous_cancellations</td>
+<td>87396.0</td>
+<td>0.030413</td>
+<td>0.369145</td>
+<td>0.00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>26.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">previous_bookings_not_canceled</td>
+<td>87396.0</td>
+<td>0.183990</td>
+<td>1.731894</td>
+<td>0.00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>72.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">booking_changes</td>
+<td>87396.0</td>
+<td>0.271603</td>
+<td>0.727245</td>
+<td>0.00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>21.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">days_in_waiting_list</td>
+<td>87396.0</td>
+<td>0.749565</td>
+<td>10.015731</td>
+<td>0.00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>391.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">adr</td>
+<td>87396.0</td>
+<td>106.337246</td>
+<td>55.013953</td>
+<td>-6.38</td>
+<td>72.0</td>
+<td>98.1</td>
+<td>134.0</td>
+<td>5400.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">required_car_parking_spaces</td>
+<td>87396.0</td>
+<td>0.084226</td>
+<td>0.281533</td>
+<td>0.00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>8.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">total_of_special_requests</td>
+<td>87396.0</td>
+<td>0.698567</td>
+<td>0.831946</td>
+<td>0.00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>5.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="identificación-de-tendencias" class="level3">
+<h3 class="anchored" data-anchor-id="identificación-de-tendencias"><strong>Identificación de tendencias</strong></h3>
+<p>Analiza y discute cualquier tendencia notable que observes en los datos, apoyándote en las visualizaciones y estadísticas descriptivas</p>
+<div id="cell-59" class="cell" data-execution_count="42">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>df.groupby([<span class="st">'arrival_date_year'</span>,<span class="st">'is_canceled'</span>])[booking_history].describe().T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">arrival_date_year</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">2015</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">2016</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">2017</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">is_canceled</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">is_repeated_guest</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2704.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>0.024413</td>
+<td>0.039941</td>
+<td>0.050893</td>
+<td>0.008298</td>
+<td>0.060614</td>
+<td>0.005933</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>0.154336</td>
+<td>0.195856</td>
+<td>0.219783</td>
+<td>0.090717</td>
+<td>0.238627</td>
+<td>0.076801</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.000000</td>
+</tr>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">previous_cancellations</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2704.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>0.005656</td>
+<td>0.390902</td>
+<td>0.023090</td>
+<td>0.030782</td>
+<td>0.018815</td>
+<td>0.006922</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>0.090905</td>
+<td>1.319174</td>
+<td>0.370198</td>
+<td>0.315052</td>
+<td>0.236838</td>
+<td>0.123213</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>0.000000</td>
+<td>1.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>2.000000</td>
+<td>26.000000</td>
+<td>13.000000</td>
+<td>13.000000</td>
+<td>6.000000</td>
+<td>4.000000</td>
+</tr>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">previous_bookings_not_canceled</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2704.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>0.061269</td>
+<td>0.016272</td>
+<td>0.254337</td>
+<td>0.048983</td>
+<td>0.305992</td>
+<td>0.029961</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>0.524851</td>
+<td>0.230237</td>
+<td>1.964585</td>
+<td>1.033917</td>
+<td>2.377585</td>
+<td>0.597324</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>14.000000</td>
+<td>7.000000</td>
+<td>57.000000</td>
+<td>58.000000</td>
+<td>72.000000</td>
+<td>27.000000</td>
+</tr>
+<tr class="odd">
+<td rowspan="8" data-quarto-table-cell-role="th" data-valign="top">booking_changes</td>
+<td data-quarto-table-cell-role="th">count</td>
+<td>10609.000000</td>
+<td>2704.000000</td>
+<td>31183.000000</td>
+<td>11208.000000</td>
+<td>21579.000000</td>
+<td>10113.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>0.292205</td>
+<td>0.120192</td>
+<td>0.308117</td>
+<td>0.170592</td>
+<td>0.331850</td>
+<td>0.161278</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>0.703777</td>
+<td>0.407086</td>
+<td>0.770912</td>
+<td>0.623434</td>
+<td>0.804871</td>
+<td>0.565171</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>20.000000</td>
+<td>8.000000</td>
+<td>21.000000</td>
+<td>16.000000</td>
+<td>18.000000</td>
+<td>6.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-60" class="cell" data-execution_count="43">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> df.groupby([<span class="st">'arrival_date_year'</span>,<span class="st">'is_canceled'</span>])[<span class="st">'previous_bookings_not_canceled'</span>].describe().reset_index()</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>grouped </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="43">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">arrival_date_year</th>
+<th data-quarto-table-cell-role="th">is_canceled</th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">25%</th>
+<th data-quarto-table-cell-role="th">50%</th>
+<th data-quarto-table-cell-role="th">75%</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2015</td>
+<td>0</td>
+<td>10609.0</td>
+<td>0.061269</td>
+<td>0.524851</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>14.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2015</td>
+<td>1</td>
+<td>2704.0</td>
+<td>0.016272</td>
+<td>0.230237</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>7.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2016</td>
+<td>0</td>
+<td>31183.0</td>
+<td>0.254337</td>
+<td>1.964585</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>57.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2016</td>
+<td>1</td>
+<td>11208.0</td>
+<td>0.048983</td>
+<td>1.033917</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>58.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2017</td>
+<td>0</td>
+<td>21579.0</td>
+<td>0.305992</td>
+<td>2.377585</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>72.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2017</td>
+<td>1</td>
+<td>10113.0</td>
+<td>0.029961</td>
+<td>0.597324</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>27.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-61" class="cell" data-execution_count="44">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'is_canceled' to a categorical label (e.g., "Canceled" or "Not Canceled")</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>grouped[<span class="st">'cancel_status'</span>] <span class="op">=</span> grouped[<span class="st">'is_canceled'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'Canceled'</span> <span class="cf">if</span> x <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">'Not Canceled'</span>)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar plot with separate bars for each year and cancellation status</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.bar(</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>    grouped,</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'arrival_date_year'</span>, </span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'mean'</span>, </span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'cancel_status'</span>,  <span class="co"># Different colors for canceled and not canceled</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Reservas no canceladas previas por año y estado de cancelación'</span>,</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>    barmode<span class="op">=</span><span class="st">'group'</span>,  <span class="co"># Groups by year and cancellation status</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{<span class="st">'mean'</span>: <span class="st">'Cantidad Promedio'</span>,  <span class="st">'arrival_date_year'</span>: <span class="st">'Año de la Reserva'</span>, <span class="st">'cancel_status'</span>: <span class="st">'Estado de Cancelación'</span>}</span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>Unable to display output for mime type(s): application/vnd.plotly.v1+json</code></pre>
+</div>
+</div>
+<div id="cell-62" class="cell" data-execution_count="45">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> df.groupby([<span class="st">'arrival_date_year'</span>,<span class="st">'is_canceled'</span>])[<span class="st">'previous_cancellations'</span>].describe().reset_index()</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>grouped </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">arrival_date_year</th>
+<th data-quarto-table-cell-role="th">is_canceled</th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">25%</th>
+<th data-quarto-table-cell-role="th">50%</th>
+<th data-quarto-table-cell-role="th">75%</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2015</td>
+<td>0</td>
+<td>10609.0</td>
+<td>0.005656</td>
+<td>0.090905</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>2.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2015</td>
+<td>1</td>
+<td>2704.0</td>
+<td>0.390902</td>
+<td>1.319174</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>26.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2016</td>
+<td>0</td>
+<td>31183.0</td>
+<td>0.023090</td>
+<td>0.370198</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>13.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2016</td>
+<td>1</td>
+<td>11208.0</td>
+<td>0.030782</td>
+<td>0.315052</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>13.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2017</td>
+<td>0</td>
+<td>21579.0</td>
+<td>0.018815</td>
+<td>0.236838</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>6.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2017</td>
+<td>1</td>
+<td>10113.0</td>
+<td>0.006922</td>
+<td>0.123213</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>4.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-63" class="cell" data-execution_count="46">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'is_canceled' to a categorical label (e.g., "Canceled" or "Not Canceled")</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>grouped[<span class="st">'cancel_status'</span>] <span class="op">=</span> grouped[<span class="st">'is_canceled'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'Canceled'</span> <span class="cf">if</span> x <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">'Not Canceled'</span>)</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bar plot with separate bars for each year and cancellation status</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.bar(</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>    grouped,</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'arrival_date_year'</span>, </span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'mean'</span>, </span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'cancel_status'</span>,  <span class="co"># Different colors for canceled and not canceled</span></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Cancelaciones previas por año y estado de cancelación'</span>,</span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>    barmode<span class="op">=</span><span class="st">'group'</span>,  <span class="co"># Groups by year and cancellation status</span></span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{<span class="st">'mean'</span>: <span class="st">'Cantidad Promedio'</span>,  <span class="st">'arrival_date_year'</span>: <span class="st">'Año de la Reserva'</span>, <span class="st">'cancel_status'</span>: <span class="st">'Estado de Cancelación'</span>}</span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>Unable to display output for mime type(s): application/vnd.plotly.v1+json</code></pre>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
