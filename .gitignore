@@ -160,6 +160,7 @@ cython_debug/
 # ignorar todos los archivos de datos 
 clases/ds-fundamentals/data/
 clases/machine-learning/data/
+automatizaciones/data/
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
