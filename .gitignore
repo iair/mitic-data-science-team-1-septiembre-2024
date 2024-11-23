@@ -158,8 +158,9 @@ cython_debug/
 .DS_Store
 
 # ignorar todos los archivos de datos 
-clases/ds-fundamentals/data/
-clases/machine-learning/data/
+mitic-data-science-team-1-septiembre-2024/ds-fundamentals/data/
+mitic-data-science-team-1-septiembre-2024/machine-learning/data/
+mitic-data-science-team-1-septiembre-2024/deep-learning/data/
 automatizaciones/data/
 
 # PyCharm
